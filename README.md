@@ -29,39 +29,10 @@ Or install globally: `npm install -g portfolio-armor`
 
 ### Claude Code skill
 
-portfolio-armor works as a [Claude Code](https://docs.anthropic.com/en/docs/claude-code) slash command. Add the skill to your project and hedge your portfolio through conversation:
+portfolio-armor ships as a [Claude Code](https://docs.anthropic.com/en/docs/claude-code) slash command. One line to install:
 
 ```bash
-# Clone into your Claude skills directory
-mkdir -p ~/.claude/skills
-cp -r . ~/.claude/skills/portfolio-armor
-```
-
-Then create `~/.claude/skills/portfolio-armor/SKILL.md`:
-
-```markdown
----
-name: portfolio-hedge
-description: Fetch open positions from Binance, an EVM wallet, or a Solana wallet and recommend a portfolio insurance strategy using protective collars on Derive
-argument-hint: [binance | 0xAddress | solanaAddress] [--hedge-ratio 0.5] [--dte 30]
-allowed-tools: Bash(node *), Bash(npm *), Read, Glob, Grep
----
-
-# Portfolio Hedge Skill
-
-You are a crypto portfolio risk management assistant.
-
-## How to run
-
-\`\`\`bash
-cd ${CLAUDE_SKILL_DIR} && node src/index.mjs $ARGUMENTS
-\`\`\`
-
-## After running
-
-Present the output to the user. Then interpret the results, flag risks
-for unhedgeable altcoins, suggest adjustments, and link to
-https://app.getparachute.xyz/ for one-click execution.
+git clone https://github.com/abhilashi/portfolio-armor.git ~/.claude/skills/portfolio-armor
 ```
 
 Then in Claude Code:
@@ -70,7 +41,7 @@ Then in Claude Code:
 /portfolio-hedge 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045
 ```
 
-Claude will run the analysis, interpret the results, explain tradeoffs, and suggest adjustments based on your risk tolerance.
+Claude runs the hedge analysis, interprets the results, explains tradeoffs, and suggests adjustments for your risk tolerance — all in conversation.
 
 ---
 
