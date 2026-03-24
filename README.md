@@ -8,7 +8,11 @@ npx portfolio-armor 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045
 
 Reads positions from **EVM wallets** (Ethereum, Arbitrum, Optimism, Base), **Solana**, or **Binance**. Fetches live options from [Derive](https://derive.xyz). Recommends a 3-leg protective collar (put spread + covered call) optimized for near-zero net cost.
 
+---
+
 ## Quick start
+
+### CLI
 
 ```bash
 # EVM wallet — paste any address
@@ -22,6 +26,53 @@ BINANCE_API_KEY=xxx BINANCE_API_SECRET=xxx npx portfolio-armor binance
 ```
 
 Or install globally: `npm install -g portfolio-armor`
+
+### Claude Code skill
+
+portfolio-armor works as a [Claude Code](https://docs.anthropic.com/en/docs/claude-code) slash command. Add the skill to your project and hedge your portfolio through conversation:
+
+```bash
+# Clone into your Claude skills directory
+mkdir -p ~/.claude/skills
+cp -r . ~/.claude/skills/portfolio-armor
+```
+
+Then create `~/.claude/skills/portfolio-armor/SKILL.md`:
+
+```markdown
+---
+name: portfolio-hedge
+description: Fetch open positions from Binance, an EVM wallet, or a Solana wallet and recommend a portfolio insurance strategy using protective collars on Derive
+argument-hint: [binance | 0xAddress | solanaAddress] [--hedge-ratio 0.5] [--dte 30]
+allowed-tools: Bash(node *), Bash(npm *), Read, Glob, Grep
+---
+
+# Portfolio Hedge Skill
+
+You are a crypto portfolio risk management assistant.
+
+## How to run
+
+\`\`\`bash
+cd ${CLAUDE_SKILL_DIR} && node src/index.mjs $ARGUMENTS
+\`\`\`
+
+## After running
+
+Present the output to the user. Then interpret the results, flag risks
+for unhedgeable altcoins, suggest adjustments, and link to
+https://app.getparachute.xyz/ for one-click execution.
+```
+
+Then in Claude Code:
+
+```
+/portfolio-hedge 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045
+```
+
+Claude will run the analysis, interpret the results, explain tradeoffs, and suggest adjustments based on your risk tolerance.
+
+---
 
 ## What you get
 
@@ -70,6 +121,8 @@ Or install globally: `npm install -g portfolio-armor`
 
 **5. Execution plan** with ready-to-paste Python code for [derive-client](https://pypi.org/project/derive-client/).
 
+---
+
 ## How a collar works
 
 A 3-leg collar gives you downside protection funded by capping your upside:
@@ -80,9 +133,11 @@ A 3-leg collar gives you downside protection funded by capping your upside:
 | **Sell put** further down | Caps how deep the protection goes | Earns premium back |
 | **Sell call** above spot | Caps your upside | Pays for the rest |
 
-When the credits from selling ≥ the cost of buying, the collar is **zero-cost** (or net credit). You give up gains above the ceiling in exchange for a protected band below.
+When the credits from selling >= the cost of buying, the collar is **zero-cost** (or net credit). You give up gains above the ceiling in exchange for a protected band below.
 
 The optimizer scores all valid strike/expiry combinations and picks the one that minimizes cost, maximizes the protection band width, prefers on-screen liquidity, and stays close to your target DTE.
+
+---
 
 ## Flags
 
