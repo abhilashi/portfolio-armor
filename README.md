@@ -29,19 +29,19 @@ Or install globally: `npm install -g portfolio-armor`
 
 ### Claude Code skill
 
-portfolio-armor ships as a [Claude Code](https://docs.anthropic.com/en/docs/claude-code) slash command. One line to install:
-
-```bash
-git clone https://github.com/abhilashi/portfolio-armor.git ~/.claude/skills/portfolio-armor
-```
-
-Then in Claude Code:
+If you already have [Claude Code](https://docs.anthropic.com/en/docs/claude-code) open, paste this prompt:
 
 ```
-/portfolio-hedge 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045
+Clone https://github.com/abhilashi/portfolio-armor.git into ~/.claude/skills/portfolio-armor and then run /portfolio-hedge 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045
 ```
 
-Claude runs the hedge analysis, interprets the results, explains tradeoffs, and suggests adjustments for your risk tolerance — all in conversation.
+That's it. Claude clones the repo, picks up the skill, runs the analysis, and walks you through the results.
+
+Once installed, you can re-run anytime with just:
+
+```
+/portfolio-hedge 0xYourAddress
+```
 
 ---
 
