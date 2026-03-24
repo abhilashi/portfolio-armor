@@ -1,0 +1,39 @@
+{
+  "name": "portfolio-armor",
+  "version": "1.0.0",
+  "description": "Hedge your crypto portfolio with protective collars on Derive. Reads positions from Binance, EVM wallets, or Solana — recommends zero-cost put spread + covered call structures.",
+  "type": "module",
+  "bin": {
+    "portfolio-armor": "src/index.mjs"
+  },
+  "scripts": {
+    "hedge": "node src/index.mjs",
+    "start": "node src/index.mjs"
+  },
+  "keywords": [
+    "crypto",
+    "options",
+    "hedge",
+    "defi",
+    "derive",
+    "lyra",
+    "collar",
+    "protective-put",
+    "portfolio",
+    "ethereum",
+    "bitcoin",
+    "solana",
+    "binance",
+    "risk-management"
+  ],
+  "author": "",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/getparachute/portfolio-armor.git"
+  },
+  "homepage": "https://app.getparachute.xyz",
+  "dependencies": {
+    "ethers": "^6.13.0"
+  }
+}
